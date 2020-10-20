@@ -61,7 +61,7 @@ public class QuizJFrame extends javax.swing.JFrame {
         jComboBoxCorrectAnswer.setVisible(visible);
     }
 
-    QuestionType getQuestionType() {
+    public QuestionType getQuestionType() {
         String questionTypeDescription = jComboBoxQuestionType.getSelectedItem().toString();
 
         QuestionType qt = QuestionType.getEnum(questionTypeDescription);
@@ -69,46 +69,46 @@ public class QuizJFrame extends javax.swing.JFrame {
         return qt;
     }
 
-    String getQuestionText() {
+   public String getQuestionText() {
         return jTextFieldQuestion.getText();
     }
 
-    String getCorrectAnswer() {
+   public String getCorrectAnswer() {
         return jTextAreaCorrectAnswer.getText();
     }
 
-    int getMark() {
+   public int getMark() {
         String markString = jTextFieldMark.getText();
 
         return Integer.parseInt(markString);
     }
 
-    int getMaxWordCount() {
+  public  int getMaxWordCount() {
         String markString = jTextFieldMaxWordCount.getText();
 
         return Integer.parseInt(markString);
     }
 
-    OptionType getMultipleChoiceOption() {
+    public OptionType getMultipleChoiceOption() {
         String optionString =  jComboBoxCorrectAnswer.getSelectedItem().toString();
         
         OptionType option = OptionType.valueOf(optionString);
         return option;
     }
 
-    String getOptionAText() {
+   public String getOptionAText() {
         return jTextFieldOptionA.getText();
     }
 
-    String getOptionBText() {
+   public String getOptionBText() {
         return jTextFieldOptionB.getText();
     }
 
-    String getOptionCText() {
+  public  String getOptionCText() {
         return jTextFieldOptionC.getText();
     }
 
-    void initializeControlValues() {
+  public void initializeControlValues() {
             jComboBoxQuestionType.setSelectedItem(QuestionType.getEnumDescription(QuestionType.Question));
             jTextFieldQuestion.setText("");
             jTextAreaCorrectAnswer.setText("");
@@ -164,6 +164,7 @@ public class QuizJFrame extends javax.swing.JFrame {
         jLabelMultipleChoiceCorrectOptions = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Quiz App");
 
         jComboBoxQuestionType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,12 +223,6 @@ public class QuizJFrame extends javax.swing.JFrame {
 
         jLabelOptionC.setText("Option C");
         jLabelOptionC.setToolTipText("");
-
-        jComboBoxCorrectAnswer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCorrectAnswerActionPerformed(evt);
-            }
-        });
 
         jLabelMultipleChoiceCorrectOptions.setText("Correct answer options");
 
@@ -349,10 +344,6 @@ public class QuizJFrame extends javax.swing.JFrame {
     private void jTextFieldMarkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMarkKeyTyped
         FilterNumbersOnTextField(evt);
     }//GEN-LAST:event_jTextFieldMarkKeyTyped
-
-    private void jComboBoxCorrectAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCorrectAnswerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxCorrectAnswerActionPerformed
 
     private void jTextFieldMaxWordCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMaxWordCountKeyTyped
         FilterNumbersOnTextField(evt);
