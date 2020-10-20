@@ -6,20 +6,21 @@ You have been tasked with developing the necessary question object(s).
 Each question type is outlined below with its necessary attributes.  
 
 Basic questions will have the following attributes:
-•	questionText
-•	 correctAnswer
-•	 mark (representing the mark awarded for a correct answer )
-•	Answer (representing the answer entered by the user)
+*	questionText
+* correctAnswer
+* mark (representing the mark awarded for a correct answer )
+* Answer (representing the answer entered by the user)
  
 Multiple choice questions will have the following attributes:
-•	questionText
-•	 correctAnswer
-•	 mark (representing the mark awarded for a correct answer )
-•	option a, option b and option c (representing each of the possible answers) 
-•	answer(representing the answer chosen by the user)
+* questionText
+* correctAnswer
+* mark (representing the mark awarded for a correct answer )
+* option a, option b and option c (representing each of the possible answers) 
+* answer(representing the answer chosen by the user)
+
 Essay Questions will have the following attributes:
-•	questionText
-•	 correctAnswer
-•	 mark (representing the mark awarded for a correct answer )
-•	answer (representing the text entered by the user)
-•	maxWordCount (representing the maximum word count for the essay)
+* questionText
+* correctAnswer
+* mark (representing the mark awarded for a correct answer )
+* answer (representing the text entered by the user)
+* maxWordCount (representing the maximum word count for the essay)
