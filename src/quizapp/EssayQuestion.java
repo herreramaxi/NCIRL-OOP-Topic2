@@ -1,6 +1,5 @@
 package quizapp;
 
-
 import quizapp.Question;
 
 /*
@@ -19,10 +18,22 @@ public class EssayQuestion extends Question {
     public EssayQuestion(String questionText,
             String correctAnswer,
             int mark,
-            String Answer,
             int maxWordCount) {
-        super(questionText, correctAnswer, mark, Answer);
+        super(questionText, correctAnswer, mark);
         this.maxWordCount = maxWordCount;
+    }
+
+    public String getTypeName() {
+        return QuestionType.Essay.toString();
+    }
+
+    @Override
+    public String toString() {
+        String superString = super.toString();
+        StringBuilder sb = new StringBuilder(superString);
+        sb.append("maxWordCount: ").append(this.maxWordCount);
+
+        return sb.toString();
     }
 
 }

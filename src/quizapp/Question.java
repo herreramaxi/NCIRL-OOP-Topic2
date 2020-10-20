@@ -16,10 +16,25 @@ public class Question {
     protected int mark;
     protected String Answer;
 
-    public Question(String questionText, String correctAnswer, int mark, String Answer) {
+    public Question(String questionText, String correctAnswer, int mark) {
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
         this.mark = mark;
-        this.Answer = Answer;
-    }   
+    }
+
+    public String getTypeName() {
+        return QuestionType.Question.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Question type: ").append(this.getTypeName()).append("\n");
+        sb.append("questionText: ").append(this.questionText).append("\n");
+        sb.append("correctAnswer: ").append(this.correctAnswer).append("\n");
+        sb.append("mark: ").append(this.mark).append("\n");
+        
+        return sb.toString();
+    }
+
 }

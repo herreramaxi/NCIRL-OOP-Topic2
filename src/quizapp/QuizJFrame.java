@@ -1,5 +1,8 @@
 package quizapp;
 
+import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 
 /*
@@ -13,16 +16,119 @@ import javax.swing.JComboBox;
  */
 public class QuizJFrame extends javax.swing.JFrame {
 
+    private UIMediator mediator;
+
     /**
      * Creates new form QuizJFrame
      */
     public QuizJFrame() {
         initComponents();
 
-        String[] questionTypes = {"Question", "MultipleChoice", "Essay"};
-
-        for (String q : questionTypes) {
+        mediator = new UIMediator(this);
+        for (String q : QuestionType.getEnumDescriptions()) {
             jComboBoxQuestionType.addItem(q);
+        }
+        for (OptionType t : OptionType.values()) {
+            jComboBoxCorrectAnswer.addItem(t.toString());
+
+        }
+
+        setVisibleCorrectAnswerControls(true);
+        setVisibleMultipleChoiceControls(false);
+        setVisibleMaxWordCountControls(false);
+    }
+
+    public void setVisibleMaxWordCountControls(Boolean visible) {
+        jLabelMaxWordCount.setVisible(visible);
+        jTextFieldMaxWordCount.setVisible(visible);
+    }
+
+    public void setVisibleCorrectAnswerControls(Boolean visible) {
+        jScrollPane2.setVisible(visible);
+        jLabelCorrectAnswer.setVisible(visible);
+        jTextAreaCorrectAnswer.setVisible(visible);
+    }
+
+    public void setVisibleMultipleChoiceControls(Boolean visible) {
+        jLabelMultipleChoiceAnswers.setVisible(visible);
+        jLabelOptionA.setVisible(visible);
+        jTextFieldOptionA.setVisible(visible);
+        jLabelOptionB.setVisible(visible);
+        jTextFieldOptionB.setVisible(visible);
+        jLabelOptionC.setVisible(visible);
+        jTextFieldOptionC.setVisible(visible);
+        jLabelMultipleChoiceCorrectOptions.setVisible(visible);
+        jComboBoxCorrectAnswer.setVisible(visible);
+    }
+
+    QuestionType getQuestionType() {
+        String questionTypeDescription = jComboBoxQuestionType.getSelectedItem().toString();
+
+        QuestionType qt = QuestionType.getEnum(questionTypeDescription);
+
+        return qt;
+    }
+
+    String getQuestionText() {
+        return jTextFieldQuestion.getText();
+    }
+
+    String getCorrectAnswer() {
+        return jTextAreaCorrectAnswer.getText();
+    }
+
+    int getMark() {
+        String markString = jTextFieldMark.getText();
+
+        return Integer.parseInt(markString);
+    }
+
+    int getMaxWordCount() {
+        String markString = jTextFieldMaxWordCount.getText();
+
+        return Integer.parseInt(markString);
+    }
+
+    OptionType getMultipleChoiceOption() {
+        String optionString =  jComboBoxCorrectAnswer.getSelectedItem().toString();
+        
+        OptionType option = OptionType.valueOf(optionString);
+        return option;
+    }
+
+    String getOptionAText() {
+        return jTextFieldOptionA.getText();
+    }
+
+    String getOptionBText() {
+        return jTextFieldOptionB.getText();
+    }
+
+    String getOptionCText() {
+        return jTextFieldOptionC.getText();
+    }
+
+    void initializeControlValues() {
+            jComboBoxQuestionType.setSelectedItem(QuestionType.getEnumDescription(QuestionType.Question));
+            jTextFieldQuestion.setText("");
+            jTextAreaCorrectAnswer.setText("");
+            jTextFieldMark.setText("");
+            jTextFieldMaxWordCount.setText("250");
+            jComboBoxCorrectAnswer.setSelectedItem(OptionType.OptionA);
+            jTextFieldOptionA.setText("");
+            jTextFieldOptionB.setText("");
+            jTextFieldOptionC.setText("");
+            
+    }
+
+    private void FilterNumbersOnTextField(KeyEvent evt) {
+        char input = evt.getKeyChar();
+
+        try {
+            Integer parseInt = Integer.parseInt(String.valueOf(input));
+        } catch (Exception exception) {
+            evt.consume();
+            System.out.println("Error when parsing mark field: " + exception.toString());
         }
     }
 
@@ -38,16 +144,24 @@ public class QuizJFrame extends javax.swing.JFrame {
         jComboBoxQuestionType = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabelQuestionText = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldQuestion = new javax.swing.JTextField();
         jLabelCorrectAnswer = new javax.swing.JLabel();
         jLabelMark = new javax.swing.JLabel();
         jTextFieldMark = new javax.swing.JTextField();
-        jLabelAnswer = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaAnswer = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaCorrectAnswer = new javax.swing.JTextArea();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jLabelMultipleChoiceAnswers = new javax.swing.JLabel();
+        jLabelMaxWordCount = new javax.swing.JLabel();
+        jTextFieldMaxWordCount = new javax.swing.JTextField();
+        jButtonSubmit = new javax.swing.JButton();
+        jTextFieldOptionA = new javax.swing.JTextField();
+        jTextFieldOptionB = new javax.swing.JTextField();
+        jTextFieldOptionC = new javax.swing.JTextField();
+        jLabelOptionA = new javax.swing.JLabel();
+        jLabelOptionB = new javax.swing.JLabel();
+        jLabelOptionC = new javax.swing.JLabel();
+        jComboBoxCorrectAnswer = new javax.swing.JComboBox<>();
+        jLabelMultipleChoiceCorrectOptions = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,18 +180,56 @@ public class QuizJFrame extends javax.swing.JFrame {
         jLabelMark.setText("Mark");
 
         jTextFieldMark.setColumns(10);
-
-        jLabelAnswer.setText("Answer");
-
-        jTextAreaAnswer.setColumns(20);
-        jTextAreaAnswer.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaAnswer);
+        jTextFieldMark.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldMarkKeyTyped(evt);
+            }
+        });
 
         jTextAreaCorrectAnswer.setColumns(20);
         jTextAreaCorrectAnswer.setRows(5);
         jScrollPane2.setViewportView(jTextAreaCorrectAnswer);
 
-        jRadioButton1.setText("jRadioButton1");
+        jLabelMultipleChoiceAnswers.setText("Multiple choice options");
+
+        jLabelMaxWordCount.setText("Max word count");
+
+        jTextFieldMaxWordCount.setText("maxWordCOunt");
+        jTextFieldMaxWordCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldMaxWordCountKeyTyped(evt);
+            }
+        });
+
+        jButtonSubmit.setText("Submit");
+        jButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSubmitActionPerformed(evt);
+            }
+        });
+
+        jTextFieldOptionA.setText("Option A");
+
+        jTextFieldOptionB.setText("Option B");
+
+        jTextFieldOptionC.setText("Option C");
+
+        jLabelOptionA.setText("Option A");
+        jLabelOptionA.setToolTipText("");
+
+        jLabelOptionB.setText("Option B");
+        jLabelOptionB.setToolTipText("");
+
+        jLabelOptionC.setText("Option C");
+        jLabelOptionC.setToolTipText("");
+
+        jComboBoxCorrectAnswer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCorrectAnswerActionPerformed(evt);
+            }
+        });
+
+        jLabelMultipleChoiceCorrectOptions.setText("Correct answer options");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,61 +239,93 @@ public class QuizJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxQuestionType, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelMark)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonSubmit)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelCorrectAnswer)
-                            .addComponent(jLabelQuestionText)
-                            .addComponent(jLabelAnswer))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabelQuestionText))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jTextField1)
+                            .addComponent(jTextFieldQuestion)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelOptionA, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelOptionB, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelOptionC, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldOptionA)
+                            .addComponent(jTextFieldOptionB)
+                            .addComponent(jTextFieldOptionC, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(jComboBoxQuestionType, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jTextFieldMark, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                    .addComponent(jLabelMaxWordCount)
+                                    .addComponent(jLabelMark)
+                                    .addComponent(jLabelMultipleChoiceCorrectOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldMark, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldMaxWordCount, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxCorrectAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelMultipleChoiceAnswers, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxQuestionType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel1)
                         .addGap(29, 29, 29)
                         .addComponent(jLabelQuestionText))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(41, 41, 41)
+                        .addComponent(jComboBoxQuestionType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelCorrectAnswer))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelCorrectAnswer)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelMark)
                     .addComponent(jTextFieldMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelAnswer))
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldMaxWordCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMaxWordCount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxCorrectAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMultipleChoiceCorrectOptions))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelMultipleChoiceAnswers)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldOptionA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelOptionA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldOptionB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelOptionB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldOptionC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelOptionC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jButtonSubmit)
+                .addContainerGap())
         );
 
         getAccessibleContext().setAccessibleParent(jScrollPane2);
@@ -150,17 +334,29 @@ public class QuizJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxQuestionTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxQuestionTypeActionPerformed
-    Object item = jComboBoxQuestionType.getSelectedItem();
-                    if ("MultipleChoice".equals(item)) {
-                       jScrollPane1.hide();
-                       jLabelAnswer.hide();
-                       jRadioButton1.show();
-                    } else if ("Question".equals(item)) {
-                       jScrollPane1.show();
-                       jLabelAnswer.show();
-                       jRadioButton1.hide();
-                    }
+        Object item = jComboBoxQuestionType.getSelectedItem();
+        QuestionType questionType = QuestionType.getEnum(item.toString());
+
+        mediator.SelectQuestion(questionType);
     }//GEN-LAST:event_jComboBoxQuestionTypeActionPerformed
+
+    private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
+        this.mediator.SubmitQuestion();
+    }//GEN-LAST:event_jButtonSubmitActionPerformed
+
+    //The idea is from https://youtu.be/YA88rtqqtz0
+    //But I simplified
+    private void jTextFieldMarkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMarkKeyTyped
+        FilterNumbersOnTextField(evt);
+    }//GEN-LAST:event_jTextFieldMarkKeyTyped
+
+    private void jComboBoxCorrectAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCorrectAnswerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCorrectAnswerActionPerformed
+
+    private void jTextFieldMaxWordCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMaxWordCountKeyTyped
+        FilterNumbersOnTextField(evt);
+    }//GEN-LAST:event_jTextFieldMaxWordCountKeyTyped
 
     /**
      * @param args the command line arguments
@@ -198,18 +394,27 @@ public class QuizJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonSubmit;
+    private javax.swing.JComboBox<String> jComboBoxCorrectAnswer;
     private javax.swing.JComboBox<String> jComboBoxQuestionType;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelAnswer;
     private javax.swing.JLabel jLabelCorrectAnswer;
     private javax.swing.JLabel jLabelMark;
+    private javax.swing.JLabel jLabelMaxWordCount;
+    private javax.swing.JLabel jLabelMultipleChoiceAnswers;
+    private javax.swing.JLabel jLabelMultipleChoiceCorrectOptions;
+    private javax.swing.JLabel jLabelOptionA;
+    private javax.swing.JLabel jLabelOptionB;
+    private javax.swing.JLabel jLabelOptionC;
     private javax.swing.JLabel jLabelQuestionText;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextAreaAnswer;
     private javax.swing.JTextArea jTextAreaCorrectAnswer;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldMark;
+    private javax.swing.JTextField jTextFieldMaxWordCount;
+    private javax.swing.JTextField jTextFieldOptionA;
+    private javax.swing.JTextField jTextFieldOptionB;
+    private javax.swing.JTextField jTextFieldOptionC;
+    private javax.swing.JTextField jTextFieldQuestion;
     // End of variables declaration//GEN-END:variables
+
 }

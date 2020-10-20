@@ -16,16 +16,32 @@ public class MultipleChoiceQuestion extends Question {
     private final String optionC;
     
     public MultipleChoiceQuestion(String questionText,
-            String correctAnswer, 
+            OptionType correctAnswer, 
             int mark,
-            String Answer,
             String optionA, 
             String optionB,
             String optionC) {
-        super(questionText, correctAnswer, mark, Answer);
+        super(questionText,correctAnswer.toString(), mark);
+        
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;
     }
+    
+     public String getTypeName(){
+        return QuestionType.MultipleChoice.toString();
+    }
 
+     
+    @Override
+    public String toString() {
+        String superString = super.toString();
+        StringBuilder sb = new StringBuilder(superString);
+        sb.append("optionA: " + this.optionA).append("\n");
+        sb.append("optionB: " + this.optionB).append("\n");
+        sb.append("optionC: " + this.optionC).append("\n");
+
+        return sb.toString();
+    }
+    
 }

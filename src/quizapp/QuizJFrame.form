@@ -28,38 +28,61 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jComboBoxQuestionType" min="-2" pref="87" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabelMark" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonSubmit" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelCorrectAnswer" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelQuestionText" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelAnswer" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="514" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" max="32767" attributes="0"/>
-                          <Component id="jTextField1" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldMark" min="-2" pref="82" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jTextFieldQuestion" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="612" max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelOptionA" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                          <Component id="jLabelOptionB" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                          <Component id="jLabelOptionC" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextFieldOptionA" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldOptionB" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldOptionC" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="85" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="jComboBoxQuestionType" min="-2" pref="135" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelMaxWordCount" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelMark" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelMultipleChoiceCorrectOptions" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTextFieldMark" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldMaxWordCount" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxCorrectAnswer" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jLabelMultipleChoiceAnswers" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -68,44 +91,60 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jComboBoxQuestionType" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="jLabelQuestionText" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="jComboBoxQuestionType" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jTextFieldQuestion" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabelCorrectAnswer" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="86" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabelCorrectAnswer" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="77" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelMark" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldMark" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelAnswer" alignment="0" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldMaxWordCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelMaxWordCount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="176" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jComboBoxCorrectAnswer" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelMultipleChoiceCorrectOptions" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabelMultipleChoiceAnswers" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldOptionA" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelOptionA" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldOptionB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelOptionB" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldOptionC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelOptionC" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <Component id="jButtonSubmit" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -134,7 +173,7 @@
         <Property name="text" type="java.lang.String" value="Question"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="jTextFieldQuestion">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelCorrectAnswer">
       <Properties>
@@ -150,27 +189,10 @@
       <Properties>
         <Property name="columns" type="int" value="10"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldMarkKeyTyped"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelAnswer">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Answer"/>
-      </Properties>
-    </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextAreaAnswer">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -186,9 +208,81 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JLabel" name="jLabelMultipleChoiceAnswers">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton1"/>
+        <Property name="text" type="java.lang.String" value="Multiple choice options"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelMaxWordCount">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Max word count"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldMaxWordCount">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="maxWordCOunt"/>
+      </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldMaxWordCountKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonSubmit">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Submit"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSubmitActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldOptionA">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Option A"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldOptionB">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Option B"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldOptionC">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Option C"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelOptionA">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Option A"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelOptionB">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Option B"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelOptionC">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Option C"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBoxCorrectAnswer">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxCorrectAnswerActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelMultipleChoiceCorrectOptions">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Correct answer options"/>
       </Properties>
     </Component>
   </SubComponents>
