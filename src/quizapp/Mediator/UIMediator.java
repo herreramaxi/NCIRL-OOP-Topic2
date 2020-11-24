@@ -163,7 +163,7 @@ public class UIMediator {
 
     private ArrayList<Question> filterQuestionsBy(String filter) {
         List<Question> filteredQuestions = questions.stream()
-                .filter((q) -> q.getQuestionText().contains(filter))
+                .filter((q) -> q.getQuestionText().toLowerCase().contains(filter.toLowerCase()))
                 .collect(Collectors.toList());
 
         return new ArrayList<>(filteredQuestions);
