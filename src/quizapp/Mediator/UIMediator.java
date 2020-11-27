@@ -16,8 +16,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,10 +28,11 @@ public class UIMediator {
 
     private final ArrayList<Question> questions;
     private final QuizJFrame mainFrame;
-    private TableAsSubject tableAsSubject;
+    private final JTable jTable;
 
-    public UIMediator(QuizJFrame mainFrame) {
+    public UIMediator(QuizJFrame mainFrame, JTable jTable) {
         this.mainFrame = mainFrame;
+        this.jTable = jTable;
         this.questions = new ArrayList<Question>();
     }
 
@@ -103,7 +105,7 @@ public class UIMediator {
 
         this.mainFrame.initializeControlValues();
         this.mainFrame.cleanSearchFilter();
-        tableAsSubject.updateModel(questions);
+        this.updateTableModel(questions);
 
         System.out.println("Queston added: ");
         System.out.println(question);
@@ -121,13 +123,13 @@ public class UIMediator {
 
             ArrayList<Question> filteredQuestions = this.filterQuestionsBy(searchText);
 
-            tableAsSubject.updateModel(filteredQuestions);
+            this.updateTableModel(filteredQuestions);
         }
     }
 
     public void SearchQuestions(String searchText) {
         ArrayList<Question> filteredQuestions = this.filterQuestionsBy(searchText);
-        tableAsSubject.updateModel(filteredQuestions);
+        this.updateTableModel(filteredQuestions);
     }
 
     public void printQuestion(int id) {
@@ -137,28 +139,29 @@ public class UIMediator {
                 .orElse(null);
 
         if (question != null) {
-            mainFrame.showMessageDialog(question);
+            mainFrame.showMessageDialog(question.toString());
+        } else {
+            mainFrame.showErrorMessageDialog("Error: question not found");
         }
     }
 
-    public void attachTable(JTable table) {
-        tableAsSubject = new TableAsSubject(table);
-    }
+    public void answerQuestion(int questionId) {
+        Question question = questions.stream()
+                .filter((q) -> q.getId() == questionId)
+                .findFirst()
+                .orElse(null);
 
-    public void attachPrintButton(JButton jButtonPrint) {
-        UIComponentObserver buttonPrintObserver = new UIComponentObserver(() -> {
-            jButtonPrint.setEnabled(tableAsSubject.getRowCount() > 0);
-        });
+        if (question != null) {
+            String answer = getUserAnswer(question);
+            boolean result = question.answer(answer);
+            String message = result
+                    ? "Your answer is correct, mark awarded: " + question.getMark()
+                    : "Incorrect answer";
 
-        tableAsSubject.attach(buttonPrintObserver);
-    }
-
-    public void attachDeleteButton(JButton jButtonDelete) {
-        UIComponentObserver buttonPrintObserver = new UIComponentObserver(() -> {
-            jButtonDelete.setEnabled(tableAsSubject.getRowCount() > 0);
-        });
-
-        tableAsSubject.attach(buttonPrintObserver);
+            mainFrame.showMessageDialog(message);
+        } else {
+            mainFrame.showErrorMessageDialog("Error: question not found");
+        }
     }
 
     private ArrayList<Question> filterQuestionsBy(String filter) {
@@ -167,5 +170,31 @@ public class UIMediator {
                 .collect(Collectors.toList());
 
         return new ArrayList<>(filteredQuestions);
+    }
+
+    private void updateTableModel(ArrayList<Question> questions) {
+        DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+        Object[] row = new Object[3];
+        model.setRowCount(0);
+        for (int i = 0; i < questions.size(); i++) {
+            row[0] = questions.get(i).getId();
+            row[1] = questions.get(i).getQuestionType();
+            row[2] = questions.get(i).getQuestionText();
+            model.addRow(row);
+        }
+    }
+
+    private String getUserAnswer(Question question) {
+        if (question.getQuestionType() == QuestionType.MultipleChoice) {
+            Object[] possibleValues = OptionType.values();
+            Object input = JOptionPane.showInputDialog(null,
+                    "Select execution mode", "Execution mode selection",
+                    JOptionPane.INFORMATION_MESSAGE, null,
+                    possibleValues, possibleValues[0]);
+
+            return input == null ? null : input.toString();
+        } else {
+            return JOptionPane.showInputDialog("Please enter answer");
+        }
     }
 }

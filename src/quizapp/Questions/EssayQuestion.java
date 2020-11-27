@@ -24,20 +24,32 @@ public class EssayQuestion extends Question {
         this.maxWordCount = maxWordCount;
     }
 
-    public String getTypeName() {
-        return QuestionType.Essay.toString();
+    public QuestionType getQuestionType() {
+        return QuestionType.Essay;
     }
 
     @Override
     public Validation Validate() {
         Validation validation = new Validation();
 
-        return correctAnswer.isEmpty()
+        boolean mandatoryFieldsNotFilled = correctAnswer.isEmpty()
                 || questionText.isEmpty()
                 || mark < 0
-                || maxWordCount <= 0
-                        ? validation.SetAsFailed("Please fill mandatory fields: Question, Correct Answer, Mark and Max words count")
-                        : validation;
+                || maxWordCount <= 0;
+
+        validation = mandatoryFieldsNotFilled
+                ? validation.SetAsFailed("Please fill mandatory fields: Question, Correct Answer, Mark and Max words count")
+                : validation;
+
+        if (!mandatoryFieldsNotFilled) {
+            int wordsCount = correctAnswer.trim().split("\\s+").length;
+
+            if (wordsCount > maxWordCount) {
+                validation.SetAsFailed("The quantity of words entered exceed the max word count limit, quantity of words: " + wordsCount);
+            }
+        }
+
+        return validation;
     }
 
     @Override

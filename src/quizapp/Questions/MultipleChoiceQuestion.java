@@ -31,8 +31,8 @@ public class MultipleChoiceQuestion extends Question {
         this.optionC = optionC;
     }
 
-    public String getTypeName() {
-        return QuestionType.MultipleChoice.toString();
+    public QuestionType getQuestionType() {
+        return QuestionType.MultipleChoice;
     }
 
     @Override

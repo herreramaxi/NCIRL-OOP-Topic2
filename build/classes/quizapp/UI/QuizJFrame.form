@@ -90,6 +90,21 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabelMultipleChoiceAnswers" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jScrollPane1" alignment="0" pref="672" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabelOptionA" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                                          <Component id="jLabelOptionB" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                                          <Component id="jLabelOptionC" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextFieldOptionB" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldOptionC" pref="569" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jButtonAdd" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -97,27 +112,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jButtonDelete" min="-2" pref="73" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" pref="672" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jTextFieldSearch" min="-2" pref="121" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButtonSearch" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabelOptionA" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
-                                              <Component id="jLabelOptionB" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
-                                              <Component id="jLabelOptionC" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTextFieldOptionB" max="32767" attributes="0"/>
-                                              <Component id="jTextFieldOptionC" pref="569" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jTextFieldSearch" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButtonSearch" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jButtonAnswer" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -191,6 +191,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextFieldSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonAnswer" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="118" max="-2" attributes="0"/>
@@ -395,6 +396,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonAnswer">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Answer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAnswerActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

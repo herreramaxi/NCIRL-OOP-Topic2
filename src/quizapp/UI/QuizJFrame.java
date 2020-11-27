@@ -4,8 +4,9 @@ import quizapp.Enums.OptionType;
 import quizapp.Enums.QuestionType;
 import quizapp.Questions.Question;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import quizapp.Mediator.UIMediator;
 
@@ -28,10 +29,7 @@ public class QuizJFrame extends javax.swing.JFrame {
     public QuizJFrame() {
         initComponents();
 
-        mediator = new UIMediator(this);
-        mediator.attachTable(jTable1);
-        mediator.attachPrintButton(jButtonPrint);
-        mediator.attachDeleteButton(jButtonDelete);
+        mediator = new UIMediator(this, jTable1);       
 
         for (String q : QuestionType.getEnumDescriptions()) {
             jComboBoxQuestionType.addItem(q);
@@ -45,7 +43,18 @@ public class QuizJFrame extends javax.swing.JFrame {
         setEnabledMaxWordCountControls(false);
         jButtonPrint.setEnabled(false);
         jButtonDelete.setEnabled(false);
+        jButtonAnswer.setEnabled(false);
         this.initializeControlValues();
+
+        //Only enable buttons when row is selected, I took the idea from below
+        //@Reference: https://stackoverflow.com/questions/38336113/jtable-if-any-row-is-selected
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                jButtonAnswer.setEnabled(jTable1.getSelectedRow() >= 0);
+                jButtonPrint.setEnabled(jTable1.getSelectedRow() >= 0);
+                jButtonDelete.setEnabled(jTable1.getSelectedRow() >= 0);
+            }
+        });
     }
 
     public void setEnabledMaxWordCountControls(Boolean visible) {
@@ -124,30 +133,30 @@ public class QuizJFrame extends javax.swing.JFrame {
         jTextAreaCorrectAnswer.setText("");
         jTextFieldMark.setText("");
         jTextFieldMaxWordCount.setText("250");
-        jComboBoxCorrectAnswer.setSelectedItem(OptionType.OptionA);
+        jComboBoxCorrectAnswer.setSelectedItem(OptionType.A);
         jTextFieldOptionA.setText("");
         jTextFieldOptionB.setText("");
         jTextFieldOptionC.setText("");
     }
-  
-   public String getSearchFilter() {
+
+    public String getSearchFilter() {
         return jTextFieldSearch.getText();
     }
-    
-  public  void showMessageDialog(Question question) {
-        JOptionPane.showMessageDialog(null, question.toString());
+
+    public void showMessageDialog(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 
-  public  void showErrorMessageDialog(String message) {       
-         JOptionPane.showMessageDialog(this, message, "Dialog",
-        JOptionPane.WARNING_MESSAGE);
+    public void showErrorMessageDialog(String message) {
+        JOptionPane.showMessageDialog(this, message, "Dialog",
+                JOptionPane.WARNING_MESSAGE);
     }
-    
-  public  void cleanSearchFilter() {
+
+    public void cleanSearchFilter() {
         jTextFieldSearch.setText("");
     }
-  
-   private void FilterNumbersOnTextField(KeyEvent evt) {
+
+    private void FilterNumbersOnTextField(KeyEvent evt) {
         char input = evt.getKeyChar();
 
         try {
@@ -156,8 +165,7 @@ public class QuizJFrame extends javax.swing.JFrame {
             evt.consume();
         }
     }
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,6 +203,7 @@ public class QuizJFrame extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jTextFieldSearch = new javax.swing.JTextField();
         jButtonSearch = new javax.swing.JButton();
+        jButtonAnswer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quiz App");
@@ -310,6 +319,13 @@ public class QuizJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonAnswer.setText("Answer");
+        jButtonAnswer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnswerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -347,28 +363,29 @@ public class QuizJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelMultipleChoiceAnswers, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabelOptionA, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabelOptionB, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabelOptionC, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(46, 46, 46)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldOptionB)
+                                        .addComponent(jTextFieldOptionC, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonPrint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonSearch))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelOptionA, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelOptionB, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelOptionC, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(46, 46, 46)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextFieldOptionB)
-                                            .addComponent(jTextFieldOptionC, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonAnswer)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -423,7 +440,8 @@ public class QuizJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearch))
+                    .addComponent(jButtonSearch)
+                    .addComponent(jButtonAnswer))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -480,13 +498,11 @@ public class QuizJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
-        int rowIndex = jTable1.getSelectedRow();
-        if (rowIndex < 0) {
+        int questionId = getSelectedQuestionId();
+        if (questionId < 0) {
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        int questionId = (int) model.getValueAt(rowIndex, 0);
         mediator.printQuestion(questionId);
     }//GEN-LAST:event_jButtonPrintActionPerformed
 
@@ -494,6 +510,27 @@ public class QuizJFrame extends javax.swing.JFrame {
         String searchText = jTextFieldSearch.getText();
         mediator.SearchQuestions(searchText);
     }//GEN-LAST:event_jButtonSearchActionPerformed
+
+    private void jButtonAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnswerActionPerformed
+        int questionId = getSelectedQuestionId();
+        if (questionId < 0) {
+            return;
+        }
+
+        mediator.answerQuestion(questionId);
+    }//GEN-LAST:event_jButtonAnswerActionPerformed
+
+    private int getSelectedQuestionId() {
+        int rowIndex = jTable1.getSelectedRow();
+        if (rowIndex < 0) {
+            return -1;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int questionId = (int) model.getValueAt(rowIndex, 0);
+
+        return questionId;
+    }
 
     /**
      * @param args the command line arguments
@@ -532,6 +569,7 @@ public class QuizJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonAnswer;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonPrint;
     private javax.swing.JButton jButtonSearch;
@@ -560,6 +598,5 @@ public class QuizJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldQuestion;
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
-  
 
 }

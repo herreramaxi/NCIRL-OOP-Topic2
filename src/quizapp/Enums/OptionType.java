@@ -10,8 +10,7 @@ package quizapp.Enums;
  * @author Maximiliano Herrera
  */
 public enum OptionType {
-
-    OptionA,
-    OptionB,
-    OptionC;
+    A,
+    B,
+    C;
 }

@@ -44,8 +44,8 @@ public class Question {
         this.mark = mark;
     }
 
-    public String getTypeName() {
-        return QuestionType.Question.toString();
+    public QuestionType getQuestionType() {
+        return QuestionType.Question;
     }
 
     public Validation Validate() {
@@ -56,10 +56,16 @@ public class Question {
                 : validation;
     }
 
+    public boolean answer(String answer) {
+        return answer == null
+                ? false
+                : correctAnswer.toLowerCase().equals(answer.toLowerCase());
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Question type: ").append(this.getTypeName()).append("\n");
+        sb.append("Question type: ").append(this.getQuestionType()).append("\n");
         sb.append("Question: ").append(this.questionText).append("\n");
         sb.append("Correct answer: ").append(this.correctAnswer).append("\n");
         sb.append("Mark: ").append(this.mark).append("\n");
