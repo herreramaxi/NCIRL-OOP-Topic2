@@ -188,7 +188,7 @@ public class UIMediator {
         if (question.getQuestionType() == QuestionType.MultipleChoice) {
             Object[] possibleValues = OptionType.values();
             Object input = JOptionPane.showInputDialog(null,
-                    "Select execution mode", "Execution mode selection",
+                    "Select correct option", "Select correct option",
                     JOptionPane.INFORMATION_MESSAGE, null,
                     possibleValues, possibleValues[0]);
 
