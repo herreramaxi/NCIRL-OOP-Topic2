@@ -1,6 +1,7 @@
 # NCIRL-OOP-Topic2
-Class diagram:
-https://raw.githubusercontent.com/herreramaxi/NCIRL-OOP-Topic2/master/Step%204%20-%20class%20diagram.png
+Class diagram Journal inheritance: https://raw.githubusercontent.com/herreramaxi/NCIRL-OOP-Topic2/master/Journal%201%20-%20Class%20diagram.png
+Class diagram Journal Arrays: https://raw.githubusercontent.com/herreramaxi/NCIRL-OOP-Topic2/master/Journal%204%20-%20class%20diagram.png
+
 
 Your development team has been asked to develop a quiz app for students to use in their study.    
 The app should enable lecturers to add questions relating to course content in a number of different formats.  
